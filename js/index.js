@@ -1,37 +1,39 @@
 "use strict";
 
 const LENGTH = window.innerHeight / 4;
-const MIN_LENGTH = LENGTH / 30;
-const BRANCHING_ANGLE = Math.PI / 6;
+const LEVELS = 10;
+let byLevel = [];
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
+    byLevel = nodesAtLevels();
+}
+
+function nodesAtLevels() {
+    let x = createVector(window.innerWidth / 2, window.innerHeight);
+    let y = createVector(window.innerWidth / 2, window.innerHeight - LENGTH);
+    let root = new Branch(x, y);
+
+    let byLevel = [];
+    byLevel.push([root]);
+    
+    for (let i = 1; i < LEVELS; i++) {
+        let prev = byLevel[i - 1];
+        let curr = [];
+        prev.forEach(b => {
+            let t = b.branch();
+            curr = curr.concat(t);
+        })
+        byLevel.push(curr);
+    }
+    return byLevel;
 }
 
 function draw() {
     background(51);
-    stroke(255);
-
-    // translate the origin from (0, 0) to (mid, max-window-height)
-    let mid = window.innerWidth / 2;
-    let something = translate(mid, height);
-    branch(LENGTH);
-}
-
-function branch(length) {
-    line(0, 0, 0, -1 * length);
-    translate(0, -1 * length);
-    if (length > MIN_LENGTH) {
-        // rotate to the right
-        push();
-        rotate(BRANCHING_ANGLE);
-        branch(length * 0.7);
-        pop();
-
-        // rotate to the left
-        push();
-        rotate(-1 * BRANCHING_ANGLE);
-        branch(length * 0.7);
-        pop();
-    }
+    byLevel.forEach(level => {
+        level.forEach(n => {
+            n.show()
+        })
+    });
 }
