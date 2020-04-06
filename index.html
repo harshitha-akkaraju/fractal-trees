@@ -4,12 +4,39 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/addons/p5.dom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 
 <body>
-    <script src="/js/branch.js"></script>
-    <script src="/js/index.js"></script>
+    <div class="settings">
+        <label for="number-of-levels">Fractal Trees</label>
+
+        <div class="form-group">
+            <label for="number-of-levels">Levels</label>
+            <input type="range" min="1" max="16" value="10" class="slider" id="levelsListener">
+            <small id="currentLevels" class="form-text text-muted">Levels: 10</small>
+        </div>
+        <div class="form-group">
+            <label for="branchingAngle">Branching Angle</label>
+            <div id="branching-angle"></div>
+            <input type="range" min="0" max="1" value="0.1" class="slider" id="angleListener" step=0.1>
+            <small id="currentBranchingAngle" class="form-text text-muted">Angle: π * 0.1</small>
+        </div>
+        <div class="form-group">
+            <label for="branch-length">Branch Length</label>
+            <input type="range" min="0" max="1" value="0.6" class="slider" id="lengthFactorListener" step=0.1>
+            <small id="currentLengthFactor" class="form-text text-muted">Factor: 0.5</small>
+        </div>
+       
+    </div>
+
+    <div>
+        <script src="/js/branch.js"></script>
+        <script src="/js/index.js"></script>
+    </div>
+
 </body>
 
 </html>

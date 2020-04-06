@@ -1,7 +1,4 @@
-const BRANCH_ANGLE = Math.PI / 6;
-const LENGTH_FACTOR = 0.7;
-
-function Branch(begin, end) {
+function Branch(begin, end, branchAngle, lengthFactor) {
     this.begin = begin;
     this.end = end;
 
@@ -13,17 +10,17 @@ function Branch(begin, end) {
     this.branch = () => {
         // create right branch
         let directionVector = p5.Vector.sub(this.end, this.begin);
-        directionVector.rotate(BRANCH_ANGLE);
-        directionVector.mult(LENGTH_FACTOR);
+        directionVector.rotate(branchAngle);
+        directionVector.mult(lengthFactor);
         let rightEnd = p5.Vector.add(this.end, directionVector);
-        let right = new Branch(this.end, rightEnd);
+        let right = new Branch(this.end, rightEnd, branchAngle, lengthFactor);
 
         // create left branch
         directionVector = p5.Vector.sub(this.end, this.begin);
-        directionVector.rotate(-1 * BRANCH_ANGLE);
-        directionVector.mult(LENGTH_FACTOR);
+        directionVector.rotate(-1 * branchAngle);
+        directionVector.mult(lengthFactor);
         let leftEnd = p5.Vector.add(this.end, directionVector);
-        let left = new Branch(this.end, leftEnd);
+        let left = new Branch(this.end, leftEnd, branchAngle, lengthFactor);
         
         return [right, left];
     }
